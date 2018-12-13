@@ -7,17 +7,17 @@
 ;; by the number of strings with exactly three of any character in it
 
 (defn- two-and-three-matching-chars [acc string]
-  (let [groups (group-by identity (seq string))]
+  (let [freqs (frequencies (seq string))]
     (merge acc
            (when (seq
                   (filter (fn [[_ v]]
-                            (= 2 (count v)))
-                          groups))
+                            (= 2 v))
+                          freqs))
              {:twos (inc (:twos acc))})
            (when (seq
                   (filter (fn [[_ v]]
-                            (= 3 (count v)))
-                          groups))
+                            (= 3 v))
+                          freqs))
              {:threes (inc (:threes acc))}))))
 
 (defn part-1 [input]
